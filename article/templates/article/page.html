@@ -1,0 +1,31 @@
+<h1>{{ title }}</h1>
+<p>Все посты (свалка) : {{ posts }}</p>
+<p>Пост №0 : {{ posts.0 }}</p>
+<p>Пост №1 : {{ posts.1 }}</p>
+
+<h1>{{ posts.0.title }}</h1>
+<p>{{ posts.0.text }}</p>
+
+<h1>{{ posts.1.title }}</h1>
+<p>{{ posts.1.text }}</p>
+
+<p>А ТЕПЕРЬ ЦИКЛОМ!!!</p>
+
+{% for p in posts %}
+    <h1>{{ p.title }}</h1>
+    <p>{{ p.text }}</p>
+{% endfor %}
+
+<!-- список заголовков -->
+<h2>Список заголовков постов:</h2>
+<ol>
+    {% for post in posts %}
+        <li>{{ post.title }}</li>
+    {% endfor %}
+</ol>
+
+<!-- Неудачный вариант: -->
+<!-- {% for p in posts %}
+    <ol>{{ posts.0.title }}, {{ posts.0.text }}</ol>
+    <li>{{ posts.1.title }}, {{ posts.1.text }}</li>
+{% endfor %} -->
