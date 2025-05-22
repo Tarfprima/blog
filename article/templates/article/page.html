@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="">
+
 <h1>{{ title }}</h1>
 <p>Все посты (свалка) : {{ posts }}</p>
 <p>Пост №0 : {{ posts.0 }}</p>
@@ -24,8 +26,4 @@
     {% endfor %}
 </ol>
 
-<!-- Неудачный вариант: -->
-<!-- {% for p in posts %}
-    <ol>{{ posts.0.title }}, {{ posts.0.text }}</ol>
-    <li>{{ posts.1.title }}, {{ posts.1.text }}</li>
-{% endfor %} -->
+

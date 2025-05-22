@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Сайт о городе</title>
+    <link rel="stylesheet" href="{% static 'pages/css/style.css' %}">
+</head>
+<body>
+    <!-- Навигационная панель -->
+    <nav>
+        <a href="/home/">Главная</a> |
+        <a href="/news/">Новости</a> |
+        <a href="/management/">Руководство</a> |
+        <a href="/facts/">Факты</a> |
+        <a href="/contacts/">Контакты</a> |
+        <a href="/history/">История</a> |
+        <a href="/history/people/">Люди</a> |
+        <a href="/history/photos/">Фото</a>
+    </nav>
+    <hr>
+    <!-- Здесь будет содержимое страниц -->
+    {% block content %}{% endblock %}
+</body>
+</html>
