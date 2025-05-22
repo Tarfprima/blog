@@ -18,7 +18,15 @@
         <a href="/history/photos/">Фото</a>
     </nav>
     <hr>
+
+    <p>Наследование</p>
+    {% block menu %}
+    {% endblock %}
+    <p>Проверка работоспособности кода наследования</p>
+
+
     <!-- Здесь будет содержимое страниц -->
     {% block content %}{% endblock %}
+    <h1>Copyright (c) 2025</h1>
 </body>
 </html>
