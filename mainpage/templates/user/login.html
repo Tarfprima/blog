@@ -1,0 +1,15 @@
+{% extends 'mainpage/main.html' %}
+{% block content %}
+    <h1>Вход на сайт</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form }}
+        <p><input type="submit" value="Войти"></p>
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% else %}
+            <input type="hidden" name="next" value="/">
+        {% endif %}
+        <p><a href="{% url 'register' %}">Нет аккаунта?</a></p>
+    </form>
+{% endblock %}

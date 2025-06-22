@@ -1,7 +1,9 @@
-<h1>Наш Блог</h1>
+{% extends 'mainpage/header_footer.html' %}
+{% load static %}
 {% block menu %}
+<link rel="stylesheet" href={% static 'mainpage/style.css' %} >
+   {% include 'mainpage/menu.html' %}
 {% endblock %}
-<h2>мяу</h2>
 {% block content %}
+<h1>Я молодец!</h1>
 {% endblock %}
-<h1>Copyright (c) 2025</h1>

@@ -1,12 +1,6 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from . import models
-
-def from_my_bd(request):
-    context = {
-        'data': models.Article.objects.all()  # Получаем все статьи из базы
-    }
-    return render(request, 'article/page_for_bd.html', context)  # Передаём данные в шаблон
-
 
 def article(request):
     context = {  # Это словарь контекста, он целиком передается в страницу-шаблон
@@ -31,10 +25,66 @@ def article(request):
         context
     )
 
-from . import models
-def get_my_blog_posts(request):
+
+def new_blog_posts(request):
+    print('Старше какой даты прислать посты? ', request.GET.get('dt'))
+    dtmin = request.GET.get('dt')
+    newest_posts = []
+    for post in models.Article.objects.filter(dt__gt=dtmin):
+        newest_posts.append({
+            'user': post.user.username,
+            'title': post.title,
+            'text': post.text,
+            'dt': post.dt
+        })
+    context = {
+        'posts': newest_posts
+    }
+    print(context)
+    return JsonResponse(context)
+
+
+def all_blog_posts(request):
+    if request.user.is_authenticated:
+        # Получаем id пользователей, на которых подписан текущий пользователь
+        subs = models.Subscription.objects.filter(subscriber=request.user)
+        posts = models.Article.objects.filter(user_id__in=subs)
+    else:
+        posts = models.Article.objects.all()
+    context = {
+        'posts': posts
+    }
+    return render(
+        request,
+        'article/feed.html',
+        context
+    )
+
+from . import forms
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='/login/')
+def new_article(request):
+    context = {
+        'new_blog_post_form': forms.BlogPostForm()
+    }
+    print(request.POST)
+    form = forms.BlogPostForm(request.POST)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form.save()
+    return render(
+        request,
+        'article/new_article.html',
+        context
+    )
+
+from datetime import datetime
+def get_my_blog_posts(request, uid):
+    print('Я получил', uid)
     context = {  # Это словарь контекста, он целиком передается в страницу-шаблон
-        'posts': models.Article.objects.all()
+        'posts': models.Article.objects.filter(
+            user_id=uid
+        )
     }
     return render(
         request,

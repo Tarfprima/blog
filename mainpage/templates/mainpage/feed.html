@@ -1,0 +1,7 @@
+{% extends 'mainpage/main.html' %}
+{% block content %}
+{% for p in posts %}
+    <h1>{{ p.title }} опубликовал {{ p.user }} {{ p.dt }}</h1>
+    <p>{{ p.text }}</p>
+{% endfor %}
+{% endblock %}

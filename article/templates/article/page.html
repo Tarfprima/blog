@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="">
+{% load static %}
+
+<link rel="stylesheet" href={% static 'article/style.css' %}>
 
 <h1>{{ title }}</h1>
 <p>Все посты (свалка) : {{ posts }}</p>
@@ -17,13 +19,3 @@
     <h1>{{ p.title }}</h1>
     <p>{{ p.text }}</p>
 {% endfor %}
-
-<!-- список заголовков -->
-<h2>Список заголовков постов:</h2>
-<ol>
-    {% for post in posts %}
-        <li>{{ post.title }}</li>
-    {% endfor %}
-</ol>
-
-

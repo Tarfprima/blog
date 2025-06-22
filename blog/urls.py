@@ -18,18 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('articles/', include('article.urls')),
-#     # path('', include('mainpage.urls')),
-#     # path('', include('pages.urls')),
-#     path('', views.from_my_bd, name='article_list'),
-
-# ]
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('pages.urls')), 
-    path('oldmain/', include('mainpage.urls')),
     path('article/', include('article.urls')),
+    path('', include('mainpage.urls')),
 ]
