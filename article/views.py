@@ -45,14 +45,8 @@ def new_blog_posts(request):
 
 
 def all_blog_posts(request):
-    if request.user.is_authenticated:
-        # Получаем id пользователей, на которых подписан текущий пользователь
-        subs = models.Subscription.objects.filter(subscriber=request.user)
-        posts = models.Article.objects.filter(user_id__in=subs)
-    else:
-        posts = models.Article.objects.all()
     context = {
-        'posts': posts
+        'posts': models.Article.objects.all()
     }
     return render(
         request,

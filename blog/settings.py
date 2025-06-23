@@ -21,11 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-d#eiisk4emfhp)t@jsxw^t*0hez+8q*6nfb#1b9%454vx$+jg^'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -37,8 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'article',
     'mainpage',
+    'article',
 ]
 
 MIDDLEWARE = [
@@ -77,8 +76,8 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        'NAME': 'blog', # имя бд
-        'USER': 'blogger', # имя пользователя
+        'NAME': 'blog',        # Name of the Database              
+        'USER': 'blogger',
     }
 }
 
