@@ -25,8 +25,13 @@ from article import models
 from django.core.paginator import Paginator
 def feed(request):
     if request.user.is_authenticated:
-         user = request.user
-    articles = models.Article.objects.all()
+        user = request.user
+        from article.models import Subscription, Article
+        subs = Subscription.objects.filter(subscriber=user)
+        articles = Article.objects.filter(user_id__in=subs)
+    else:
+        user = None
+        articles = models.Article.objects.all()
     article_paginator = Paginator(articles, 2)
     page = request.GET.get('page')
     context = {
