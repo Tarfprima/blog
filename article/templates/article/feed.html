@@ -2,8 +2,35 @@
 {% block content %}
 {% load static %}
 <script src={% static 'article/get_new_posts.js' %}> </script>
+<script src={% static 'article/edit_article.js' %}> </script>
+
 {% for p in posts %}
-    <h1>{{ p.title }} опубликовал {{ p.user }} {{ p.dt }}</h1>
-    <p>{{ p.text }}</p>
+    <!-- Обычное отображение статьи -->
+    <div id="article_{{ p.id }}">
+        <h1>{{ p.title }} опубликовал {{ p.user }} {{ p.dt }}</h1>
+        <p>{{ p.text }}</p>
+        <button onclick="showEditForm({{ p.id }})" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+            Редактировать
+        </button>
+    </div>
+
+    <!-- Форма редактирования (изначально скрыта) -->
+    <div id="edit_form_{{ p.id }}" style="display: none; border: 2px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px;">
+        <h3>Редактирование статьи</h3>
+        <div style="margin-bottom: 10px;">
+            <label for="title_{{ p.id }}">Заголовок:</label><br>
+            <input type="text" id="title_{{ p.id }}" value="{{ p.title }}" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="text_{{ p.id }}">Текст:</label><br>
+            <textarea id="text_{{ p.id }}" rows="5" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">{{ p.text }}</textarea>
+        </div>
+        <button onclick="editArticle({{ p.id }})" style="background-color: #2196F3; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+            Сохранить
+        </button>
+        <button onclick="showArticle({{ p.id }})" style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+            Отмена
+        </button>
+    </div>
 {% endfor %}
 {% endblock %}

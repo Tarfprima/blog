@@ -45,14 +45,8 @@ def new_blog_posts(request):
 
 
 def all_blog_posts(request):
-    if request.user.is_authenticated:
-        # Получаем id пользователей, на которых подписан текущий пользователь
-        subs = models.Subscription.objects.filter(subscriber=request.user)
-        posts = models.Article.objects.filter(user_id__in=subs)
-    else:
-        posts = models.Article.objects.all()
     context = {
-        'posts': posts
+        'posts': models.Article.objects.all()
     }
     return render(
         request,
@@ -91,3 +85,23 @@ def get_my_blog_posts(request, uid):
         'article/page.html',
         context
     )
+
+def edit_article(request):
+    if request.method == 'POST':
+        print('Получил данные для редактирования:', request.POST)
+        article_id = request.POST.get('article_id')
+        new_title = request.POST.get('title')
+        new_text = request.POST.get('text')
+        
+        try:
+            article = models.Article.objects.get(id=article_id)
+            article.title = new_title
+            article.text = new_text
+            article.save()
+            print('Статья успешно отредактирована!')
+            return JsonResponse({'status': 'success', 'message': 'Статья отредактирована!'})
+        except models.Article.DoesNotExist:
+            print('Статья не найдена!')
+            return JsonResponse({'status': 'error', 'message': 'Статья не найдена!'})
+    
+    return JsonResponse({'status': 'error', 'message': 'Неправильный метод запроса!'})
